@@ -45,6 +45,7 @@ const Post = () => {
 
   return (
     <>
+      <title>Blog Alkabot</title>
       <Menu />
       <PostContainer>
         {currentPosts.map((post) => (

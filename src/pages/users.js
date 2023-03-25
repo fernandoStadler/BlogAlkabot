@@ -43,6 +43,7 @@ const Users = () => {
 
     return (
         <>
+                <title>Blog Alkabot</title>
             <Menu />
             <UserContainer>
                 {currentUsers.map(user => (

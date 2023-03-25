@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HomeContainer, NewsContainer, NewsCard, NewsTumb, NewsTitle, NewsDescription, NewsButton, Pagnination } from "../styles/styledHome";
 import Menu from "../components/Menu";
 import Footer from '../components/Footer';
@@ -9,12 +8,13 @@ import axios from "axios";
 export default function Home({ articles }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [newsPerPage, setNewsPerPage] = useState(4);
+  const [currentNews, setCurrentNews] = useState([]);
 
-  const indexOfLastNew = currentPage * newsPerPage;
-  const indexOfFirstNew = indexOfLastNew - newsPerPage;
-  const currentNews = articles?.slice(indexOfFirstNew, indexOfLastNew);
+  useEffect(() => {
+    setCurrentNews(articles.slice(0, newsPerPage));
+  }, [articles, newsPerPage]);
 
-  const totalPages = Math.ceil(articles?.length / newsPerPage);
+  const totalPages = Math.ceil(articles.length / newsPerPage);
   const pageNumbers = [];
 
   for (let i = 1; i <= totalPages; i++) {
@@ -24,15 +24,17 @@ export default function Home({ articles }) {
   const handleClick = (event, pageNumber) => {
     event.preventDefault();
     setCurrentPage(pageNumber);
+    setCurrentNews(articles.slice((pageNumber - 1) * newsPerPage, pageNumber * newsPerPage));
   };
 
   return (
     <>
+      <title>Blog Alkabot</title>
       <Menu />
       <HomeContainer>
         <h1>Notícias de tecnologia no Brasil</h1>
         <NewsContainer>
-          {currentNews?.map((article, index) => {
+          {currentNews.map((article, index) => {
             if (index < 20) { // Exibe no máximo 20 notícias
               return (
                 <NewsCard key={index}>

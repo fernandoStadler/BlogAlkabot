@@ -53,6 +53,7 @@ const UserDetails = () => {
   return (
 
     <>
+      <title>Blog Alkabot</title>
       <Menu />
       <UserContainer>
         <UserHeader>
@@ -67,7 +68,7 @@ const UserDetails = () => {
         <ContactContainer>
           <Pill>Contato</Pill>
           <div>
-          <span><strong>Telefone: </strong>{user.phone}</span>
+            <span><strong>Telefone: </strong>{user.phone}</span>
             <span><strong>Site: </strong>{user.website}</span>
             <span><strong>E-mail: </strong>{user.email}</span>
           </div>
@@ -83,7 +84,7 @@ const UserDetails = () => {
         <AddressContainer>
           <Pill>Endereço</Pill>
           <div>
-          <span><strong>Logradouro: </strong>{address.street}</span>
+            <span><strong>Logradouro: </strong>{address.street}</span>
             <span><strong>Casa: </strong>{address.suite}</span>
           </div>
           <div>
@@ -91,7 +92,7 @@ const UserDetails = () => {
             <span><strong>CEP: </strong>{address.zipcode}</span>
           </div>
         </AddressContainer>
-      
+
       </UserContainer>
       <Footer />
     </>

@@ -39,10 +39,10 @@ const Comments = () => {
 
   return (
     <>
+      <title>Blog Alkabot</title>
       <Menu />
       <PostTitle>
         <span><strong>Post: </strong>{post.title}</span>
-      
       </PostTitle>
       <CommentsContainer>
         {comments.map(comment => (
@@ -55,7 +55,7 @@ const Comments = () => {
             </CommentsAuthor>
           </CommentsCard>
         ))}
-          <Link href={`/post`}>
+        <Link href={`/post`}>
           Voltar
         </Link>
       </CommentsContainer>
