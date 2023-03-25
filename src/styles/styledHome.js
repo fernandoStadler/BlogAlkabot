@@ -20,7 +20,7 @@ export const NewsContainer = styled.div`
 
 `
 export const NewsCard = styled.div`
-      display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: #fff;
@@ -30,6 +30,12 @@ export const NewsCard = styled.div`
     width: 250px;
     min-height: 300px;
     padding: 10px;
+
+    @media screen and (max-width: 700px) {
+             width: 100vw;
+     } 
+
+    
     
 `;
 export const NewsTumb = styled.picture`

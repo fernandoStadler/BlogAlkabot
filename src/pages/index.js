@@ -1,36 +1,21 @@
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import { HomeContainer, NewsContainer, NewsCard, NewsTumb, NewsTitle, NewsDescription, NewsButton, Pagnination } from "../styles/styledHome";
 import Menu from "../components/Menu";
 import Footer from '../components/Footer';
 import Image from 'next/image';
+import axios from "axios";
 
-export default function Home() {
-  const [news, setNews] = useState([]);
+export default function Home({ articles }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [newsPerPage, setNewsPerPage] = useState(4);
 
   const indexOfLastNew = currentPage * newsPerPage;
   const indexOfFirstNew = indexOfLastNew - newsPerPage;
-  const currentNews = news.slice(indexOfFirstNew, indexOfLastNew);
+  const currentNews = articles?.slice(indexOfFirstNew, indexOfLastNew);
 
-  const totalPages = Math.ceil(news.length / newsPerPage);
+  const totalPages = Math.ceil(articles?.length / newsPerPage);
   const pageNumbers = [];
-
-  useEffect(() => {
-    fetch("https://newsapi.org/v2/top-headlines?country=br&category=technology&apiKey=484e6a3d0050495193db5d20649e6c85")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erro ao obter notícias.');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setNews(data.articles);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
 
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
@@ -41,14 +26,13 @@ export default function Home() {
     setCurrentPage(pageNumber);
   };
 
-
   return (
     <>
       <Menu />
       <HomeContainer>
         <h1>Notícias de tecnologia no Brasil</h1>
         <NewsContainer>
-          {currentNews.map((article, index) => {
+          {currentNews?.map((article, index) => {
             if (index < 20) { // Exibe no máximo 20 notícias
               return (
                 <NewsCard key={index}>
@@ -92,4 +76,21 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticProps() {
+  const res = await axios.get('https://newsapi.org/v2/top-headlines', {
+    params: {
+      country: 'br',
+      category: 'technology',
+      apiKey: '484e6a3d0050495193db5d20649e6c85',
+    },
+  });
+  const articles = res.data.articles;
+
+  return {
+    props: {
+      articles,
+    },
+  };
 }
