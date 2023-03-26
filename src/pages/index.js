@@ -10,6 +10,7 @@ export default function Home({ articles }) {
   const [newsPerPage, setNewsPerPage] = useState(4);
   const [currentNews, setCurrentNews] = useState([]);
 
+
   useEffect(() => {
     setCurrentNews(articles.slice(0, newsPerPage));
   }, [articles, newsPerPage]);
@@ -35,7 +36,7 @@ export default function Home({ articles }) {
         <h1>Notícias de tecnologia no Brasil</h1>
         <NewsContainer>
           {currentNews.map((article, index) => {
-            if (index < 20) { // Exibe no máximo 20 notícias
+            if (index < 30) {
               return (
                 <NewsCard key={index}>
                   <NewsTumb>
